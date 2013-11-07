@@ -101,6 +101,8 @@ void SourceFile::getCleanLine(const std::string& line, std::string& cleanedLine)
 				return;
 			}
 			break;
+		default:
+			return;
 		}
 		cleanedLine.push_back(line[i]);
 	}
@@ -146,10 +148,12 @@ bool SourceFile::isSourceLine(const std::string& line)
 
 			return std::string::npos == tmp.find(PreProc_VB.c_str(), 0, PreProc_VB.length());
 		} break;
+		default:
+			return false;
 		}
 	}
 
-	bool bRet = ((int)tmp.size() >= m_minChars);
+	bool bRet = (tmp.size() >= m_minChars);
 	assert(bRet);
 
 	return bRet;
