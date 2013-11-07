@@ -1,8 +1,13 @@
-# Compiler
-CC = g++
+# Set compiler to g++, unless it is already set.
+CXX ?= g++
 
 # Flags
-CXXFLAGS = -O3
+CXXFLAGS = -Wall -Wextra
+ifeq ($(DEBUG),1)
+  CXXFLAGS += -g -O0
+else
+  CXXFLAGS += -O3
+endif
 LDFLAGS =  ${CXXFLAGS}
 
 # Define what extensions we use
@@ -21,16 +26,13 @@ all: ${PROG_NAME}
 
 # Link
 ${PROG_NAME}: ${OBJS}
-	${CC} ${LDFLAGS} -o ${PROG_NAME} ${OBJS}
+	${CXX} ${LDFLAGS} -o ${PROG_NAME} ${OBJS}
 
 # Each .cpp file compile
 .cpp.o:
-	${CC} ${CXXFLAGS} -c $*.cpp -o$@
+	${CXX} ${CXXFLAGS} -c $*.cpp -o$@
 
-# Remove all object files
+# Remove all object files and the executable
 clean:	
-	rm -f *.o
-
-
-
+	rm -f *.o duplo
 
