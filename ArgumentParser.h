@@ -22,18 +22,18 @@
 #ifndef _ARGUMENTPARSER_H_
 #define _ARGUMENTPARSER_H_
 
-class ArgumentParser{
+class ArgumentParser {
 private:
 	int argc;
-	char **argv;
+	char** argv;
 
 public:
 	ArgumentParser(int m_argc, char* m_argv[]);
 
-	bool is(char *s);
-	char *getStr(char *s, char *defaultValue="");
-	int getInt(char *s, int defaultValue);
-	float getFloat(char *s, float defaultValue);
+	bool is(char* s);
+	char* getStr(char* s, char* defaultValue = "");
+	int getInt(char* s, int defaultValue);
+	float getFloat(char* s, float defaultValue);
 };
 
 #endif
