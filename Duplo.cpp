@@ -16,6 +16,7 @@
 
 #include "Duplo.h"
 
+#include <cstring>
 #include <fstream>
 #include <time.h>
 
