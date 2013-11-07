@@ -50,6 +50,7 @@ protected:
 
 public:
     SourceFile(const std::string& fileName, const unsigned int minChars, const bool ignorePrepStuff);
+    ~SourceFile();
     
     int getNumOfLines();
     SourceLine* getLine(const int index);

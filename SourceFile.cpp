@@ -24,9 +24,9 @@
 
 SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars, const bool ignorePrepStuff) :
     m_fileName(fileName),
+    m_FileType(FileType::GetFileType(fileName)),
     m_minChars(minChars),
-    m_ignorePrepStuff(ignorePrepStuff),
-    m_FileType(FileType::GetFileType(fileName))
+    m_ignorePrepStuff(ignorePrepStuff)
 {
 	TextFile listOfFiles(m_fileName.c_str());
 
@@ -73,6 +73,13 @@ SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars,
 		if(isSourceLine(cleaned)){
 			m_sourceLines.push_back(new SourceLine(cleaned, i));
 		}
+	}
+}
+
+SourceFile::~SourceFile()
+{
+	for (unsigned int i=0; i<m_sourceLines.size();++i){
+		delete m_sourceLines[i];
 	}
 }
 
