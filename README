@@ -1,3 +1,21 @@
+# About This Fork
+
+This is a fork of the _Duplo_ duplicate source code checker. It currently lives
+at http://github.com/bitfehler/duplo. The original Duplo project page is at
+http://sourceforge.net/projects/duplo, and the home page is
+http://duplo.giants.ch (which seems to be the SF hosted home page.
+
+I think code duplication can be a serious issue and found this tool to be quite
+handy. It works well, yet I noticed its code could need some lovin' after all
+these years. Since most other tools of this sort seem to be written in Java -
+which most C programmers don't really like to deal with :) - I figured it would
+be worthwhile creating this repo and spent some time on it. So, if you are
+interested... well, happy forking!
+
+Below is the original README reproduced in all its glory. It fails to mention
+it, but for building the executable, just call _make_ ;)
+
+# Original README
 ________________________________________________________________________________
 
 Duplo (C/C++/Java Duplicate Source Code Block Finder)
@@ -88,4 +106,4 @@ You should have received a copy of the GNU General Public License
 along with Duplo; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ________________________________________________________________________________
-                                   2005, Christian M. Ammann (cammann@giants.ch)                                                            
+                                   2005, Christian M. Ammann (cammann@giants.ch)
