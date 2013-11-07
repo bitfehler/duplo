@@ -214,15 +214,17 @@ void Duplo::run(std::string outputFileName){
 	for(int i=0;i<(int)lines.size();i++){
 		if(lines[i].size() > 5){
 			SourceFile* pSourceFile = new SourceFile(lines[i], m_minChars, m_ignorePrepStuff);
-            int numLines = pSourceFile->getNumOfLines();
-            if(numLines > 0){
-                files++;
-                sourceFiles.push_back(pSourceFile);
-                locsTotal+=numLines;
-                if(m_maxLinesPerFile < numLines){
-                    m_maxLinesPerFile = numLines;
-                }
-            }
+			int numLines = pSourceFile->getNumOfLines();
+			if(numLines > 0){
+				files++;
+				sourceFiles.push_back(pSourceFile);
+				locsTotal+=numLines;
+				if(m_maxLinesPerFile < numLines){
+					m_maxLinesPerFile = numLines;
+				}
+			} else {
+				delete pSourceFile;
+			}
 		}
 	}
 
@@ -254,6 +256,11 @@ void Duplo::run(std::string outputFileName){
         blocksTotal+=blocks;
 	}
 
+	// Clean up
+	for(int i=0;i<(int)sourceFiles.size();i++){
+		delete sourceFiles[i];
+	}
+	sourceFiles.clear();
 
     finish = clock();
     duration = (double)(finish - start) / CLOCKS_PER_SEC;

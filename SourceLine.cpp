@@ -39,6 +39,7 @@ SourceLine::SourceLine(std::string& line, int lineNumber){
     long long* pDigest = (long long*)HashUtil::getMD5Sum((unsigned char*)cleanLine.c_str(), (int)cleanLine.size());
 	m_hashHigh = pDigest[0];
 	m_hashLow = pDigest[1];
+	delete[] pDigest;
 }
 
 int SourceLine::getLineNumber(){
