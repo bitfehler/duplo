@@ -16,7 +16,6 @@
 
 #include "SourceLine.h"
 
-#include "SourceFile.h"
 #include "HashUtil.h"
 
 /** 
@@ -46,11 +45,6 @@ SourceLine::SourceLine(std::string& line, int lineNumber)
 int SourceLine::getLineNumber()
 {
 	return m_lineNumber;
-}
-
-bool SourceLine::equals(SourceLine* pLine)
-{
-	return (m_hashHigh == pLine->m_hashHigh && m_hashLow == pLine->m_hashLow);
 }
 
 std::string& SourceLine::getLine()

@@ -16,11 +16,12 @@
 
 #include "SourceFile.h"
 
-#include "TextFile.h"
-#include "StringUtil.h"
-
-#include <algorithm>
 #include <assert.h>
+#include <algorithm>
+
+#include "TextFile.h"
+#include "SourceLine.h"
+#include "StringUtil.h"
 
 SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars, const bool ignorePrepStuff)
     : m_fileName(fileName),
@@ -68,6 +69,7 @@ SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars,
 			m_sourceLines.push_back(new SourceLine(cleaned, i));
 		}
 	}
+	m_lines = (int)m_sourceLines.size();
 }
 
 SourceFile::~SourceFile()
@@ -159,17 +161,7 @@ bool SourceFile::isSourceLine(const std::string& line)
 	return bRet;
 }
 
-int SourceFile::getNumOfLines()
-{
-	return (int)m_sourceLines.size();
-}
-
-SourceLine* SourceFile::getLine(const int index)
-{
-	return m_sourceLines[index];
-}
-
-const std::string& SourceFile::getFilename()
+const std::string& SourceFile::getFilename() const
 {
 	return m_fileName;
 }

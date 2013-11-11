@@ -23,7 +23,6 @@
 #define _SOURCELINE_H_
 
 #include <string>
-#include <vector>
 
 class SourceLine {
 protected:
@@ -38,7 +37,11 @@ public:
 
 	int getLineNumber();
 	std::string& getLine();
-	bool equals(SourceLine* pLine);
+
+	inline bool equals(SourceLine* pLine)
+	{
+		return (m_hashHigh == pLine->m_hashHigh) & (m_hashLow == pLine->m_hashLow);
+	}
 };
 
 #endif

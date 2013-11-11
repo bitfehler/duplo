@@ -25,8 +25,9 @@
 #include <string>
 #include <vector>
 
-#include "SourceLine.h"
 #include "FileType.h"
+
+class SourceLine;
 
 #ifndef MIN
 #define MIN(x, y) \
@@ -42,6 +43,7 @@ protected:
 	std::string m_fileName;
 	FileType::FILETYPE m_FileType;
 
+	int m_lines;
 	unsigned int m_minChars;
 	bool m_ignorePrepStuff;
 
@@ -54,9 +56,10 @@ public:
 	SourceFile(const std::string& fileName, const unsigned int minChars, const bool ignorePrepStuff);
 	~SourceFile();
 
-	int getNumOfLines();
-	SourceLine* getLine(const int index);
-	const std::string& getFilename();
+	const std::string& getFilename() const;
+
+	inline int getNumOfLines() const { return m_lines; }
+	inline SourceLine* getLine(const int index) const { return m_sourceLines[index]; }
 };
 
 #endif
