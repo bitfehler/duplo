@@ -22,7 +22,14 @@
 #ifndef _DUPLO_H_
 #define _DUPLO_H_
 
+/* The default minimum number of identical lines required for a match. */
+#define MIN_BLOCK_SIZE 4
+
+/* The default minimum number of characters for a line to be part of a match. */
+#define MIN_CHARS 3
+
 #include <string>
+#include <vector>
 #include <iostream>
 
 class SourceFile;
@@ -31,7 +38,7 @@ const std::string VERSION = "0.2.0";
 
 class Duplo {
 protected:
-	std::string m_listFileName;
+	const std::vector<std::string>& m_inputFiles;
 	unsigned int m_minBlockSize;
 	unsigned int m_minChars;
 	bool m_ignorePrepStuff;
@@ -39,6 +46,7 @@ protected:
 	int m_maxLinesPerFile;
 	int m_DuplicateLines;
 	bool m_Xml;
+	bool m_quiet;
 	unsigned char* m_pMatrix;
 
 	void reportSeq(int line1, int line2, int count, SourceFile* pSource1, SourceFile* pSource2, std::ostream& outFile);
@@ -48,9 +56,9 @@ protected:
 	bool isSameFilename(const std::string& filename1, const std::string& filename2);
 
 public:
-	Duplo(const std::string& listFileName, unsigned int minBlockSize, unsigned int minChars, bool ignorePrepStuff, bool ignoreSameFilename, bool Xml);
+	Duplo(const std::vector<std::string>& inputFiles, unsigned int minBlockSize, unsigned int minChars, bool ignorePrepStuff, bool ignoreSameFilename, bool Xml, bool quiet);
 	~Duplo();
-	void run(std::string outputFileName);
+	void run(std::ostream& out);
 };
 
 #endif

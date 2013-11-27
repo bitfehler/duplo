@@ -17,8 +17,8 @@ LDFLAGS =  ${CXXFLAGS}
 PROG_NAME = duplo
 
 # List of object files
-OBJS = StringUtil.o HashUtil.o ArgumentParser.o TextFile.o \
-       SourceFile.o SourceLine.o Duplo.o FileType.o
+OBJS = StringUtil.o HashUtil.o TextFile.o FileType.o \
+       SourceFile.o SourceLine.o Duplo.o main.o
 
 # Build process
 
