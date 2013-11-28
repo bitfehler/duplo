@@ -1,17 +1,19 @@
-/**
- * This program is free software; you can redistribute it and/or modify
+/*
+ * Duplo: a duplicate source code checker
+ * Copyright (C) 2005-2013 the Duplo developers (see the AUTHORS file).
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 #include "Duplo.h"
@@ -118,6 +120,7 @@ int Duplo::process(SourceFile* pSource1, SourceFile* pSource2, std::ostream& out
 				seqLen++;
 			} else {
 				if (seqLen >= m_minBlockSize) {
+					std::cout << "Found vertical part of length " << seqLen << std::endl;
 					reportSeq(y + x - seqLen, x - seqLen, seqLen, pSource1, pSource2, outFile);
 					blocks++;
 				}
@@ -126,6 +129,7 @@ int Duplo::process(SourceFile* pSource1, SourceFile* pSource2, std::ostream& out
 		}
 
 		if (seqLen >= m_minBlockSize) {
+			std::cout << "Found vertical part of length " << seqLen << std::endl;
 			reportSeq(m - seqLen, n - seqLen, seqLen, pSource1, pSource2, outFile);
 			blocks++;
 		}
@@ -140,6 +144,7 @@ int Duplo::process(SourceFile* pSource1, SourceFile* pSource2, std::ostream& out
 				seqLen++;
 			} else {
 				if (seqLen >= m_minBlockSize) {
+					std::cout << "Found horizontal part of length " << seqLen << std::endl;
 					reportSeq(y - seqLen, x + y - seqLen, seqLen, pSource1, pSource2, outFile);
 					blocks++;
 				}
@@ -148,6 +153,7 @@ int Duplo::process(SourceFile* pSource1, SourceFile* pSource2, std::ostream& out
 		}
 
 		if (seqLen >= m_minBlockSize) {
+			std::cout << "Found horizontal part of length " << seqLen << std::endl;
 			reportSeq(m - seqLen, n - seqLen, seqLen, pSource1, pSource2, outFile);
 			blocks++;
 		}
