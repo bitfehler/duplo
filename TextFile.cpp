@@ -19,6 +19,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include <iostream>
 
 #include "TextFile.h"
@@ -33,39 +34,17 @@ TextFile::TextFile(const std::string& fileName)
 {
 }
 
-/** 
- * Reads the whole text file into a std::string.
- */
-bool TextFile::readAll(std::string& all)
+bool TextFile::readLines(std::vector<std::string>& lines)
 {
-	std::ifstream inFile(m_fileName.c_str(), std::ios::in | std::ios::binary | std::ios::ate);
-	if (inFile.is_open()) {
-		unsigned int len = inFile.tellg();
-		inFile.seekg(0, std::ios::beg);
-		char* buffer = new char[len];
-		inFile.read(buffer, len);
-		inFile.close();
-		std::ostringstream os;
-		os.write(buffer, len);
-		delete[] buffer;
-		all = os.str();
-	} else {
-		std::cerr << "Error: Can't open file: " << m_fileName << ". File doesn't exist or access denied.\n";
+	std::ifstream infile(m_fileName.c_str());
+	if (!infile.good()) {
+		std::cerr << "Error: Can't open file: " << m_fileName << ". File doesn't exist or access denied." << std::endl;
 		return false;
 	}
-	return true;
-}
 
-bool TextFile::readLines(std::vector<std::string>& lines, bool doTrim)
-{
-
-	std::string list;
-	if (readAll(list)) {
-		StringUtil::substitute('\r', ' ', list);
-		StringUtil::substitute('\t', ' ', list);
-		StringUtil::split(list, "\n", lines, doTrim);
-	} else {
-		return false;
+	std::string line;
+	while (std::getline(infile, line)) {
+		lines.push_back(line);
 	}
 	return true;
 }

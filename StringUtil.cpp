@@ -63,68 +63,6 @@ std::string StringUtil::trim(const std::string& input)
 	return final;
 }
 
-/**
- * Split string
- *
- * @param input  string to split
- * @param delimiter  delimiter string to trim
- * @param results  results vector with substrings
- * @param trim  boolean to indicate trimming or not
- * @return returns number of substrings
- */
-int StringUtil::split(const std::string& input, const std::string& delimiter, std::vector<std::string>& results, bool doTrim)
-{
-	int sizeDelim = (int)delimiter.size();
-
-	int newPos = (int)input.find(delimiter, 0);
-
-	if (newPos < 0) {
-		if (doTrim) {
-			results.push_back(trim(input));
-		} else {
-			results.push_back(input);
-		}
-		return 0;
-	}
-
-	int numFound = 0;
-
-	std::vector<int> positions;
-
-	// At the begin is always a marker
-	positions.push_back(-sizeDelim);
-	int pos = 0;
-	while (pos != -1) {
-		numFound++;
-		pos = (int)input.find(delimiter, pos + sizeDelim);
-		if (pos != -1) {
-			positions.push_back(pos);
-		}
-	}
-
-	// At the end is always a marker
-	positions.push_back((int)input.size());
-
-	for (int i = 0; i < (int)positions.size() - 1; i++) {
-		std::string s;
-
-		int start = positions[i] + sizeDelim;
-		int size = positions[i + 1] - positions[i] - sizeDelim;
-
-		if (size > 0) {
-			s = input.substr(start, size);
-		}
-
-		if (doTrim) {
-			results.push_back(trim(s));
-		} else {
-			results.push_back(s);
-		}
-	}
-
-	return numFound;
-}
-
 std::string StringUtil::substitute(char s, char d, const std::string& str)
 {
 	std::string tmp = str;

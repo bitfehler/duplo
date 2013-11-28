@@ -34,7 +34,7 @@ SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars,
 	TextFile listOfFiles(m_fileName.c_str());
 
 	std::vector<std::string> lines;
-	listOfFiles.readLines(lines, false);
+	listOfFiles.readLines(lines);
 
 	int openBlockComments = 0;
 	for (int i = 0; i < (int)lines.size(); i++) {

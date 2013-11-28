@@ -28,8 +28,7 @@ protected:
 
 public:
 	TextFile(const std::string& fileName);
-	bool readAll(std::string& all);
-	bool readLines(std::vector<std::string>& lines, bool doTrim);
+	bool readLines(std::vector<std::string>& lines);
 	bool writeAll(const std::string& all);
 };
 
