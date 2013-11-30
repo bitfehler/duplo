@@ -37,23 +37,24 @@ class SourceLine;
 
 class SourceFile {
 protected:
+	std::string m_absFileName;
 	std::string m_fileName;
 	FileType::FILETYPE m_FileType;
 
 	int m_lines;
-	unsigned int m_minChars;
 	bool m_ignorePrepStuff;
 
 	std::vector<SourceLine*> m_sourceLines;
 
-	bool isSourceLine(const std::string& line);
+	bool isSourceLine(const std::string& line, const unsigned int minChars);
 	void getCleanLine(const std::string& line, std::string& cleanedLine);
+	std::string getBasename();
 
 public:
 	SourceFile(const std::string& fileName, const unsigned int minChars, const bool ignorePrepStuff);
 	~SourceFile();
 
-	const std::string& getFilename() const;
+	const std::string& getFilename(bool abs=true) const;
 
 	inline int getNumOfLines() const { return m_lines; }
 	inline SourceLine* getLine(const int index) const { return m_sourceLines[index]; }

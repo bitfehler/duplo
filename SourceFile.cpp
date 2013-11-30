@@ -25,12 +25,18 @@
 #include "SourceLine.h"
 #include "StringUtil.h"
 
+#if defined(__CYGWIN__) || defined(_WIN32)
+#define PATH_SEP '\\'
+#else
+#define PATH_SEP '/'
+#endif
+
 SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars, const bool ignorePrepStuff)
-    : m_fileName(fileName),
+    : m_absFileName(fileName),
       m_FileType(FileType::GetFileType(fileName)),
-      m_minChars(minChars),
       m_ignorePrepStuff(ignorePrepStuff)
 {
+	m_fileName = getBasename();
 	TextFile listOfFiles(m_fileName.c_str());
 
 	std::vector<std::string> lines;
@@ -67,7 +73,7 @@ SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars,
 		std::string cleaned;
 		getCleanLine(tmp, cleaned);
 
-		if (isSourceLine(cleaned)) {
+		if (isSourceLine(cleaned, minChars)) {
 			m_sourceLines.push_back(new SourceLine(cleaned, i));
 		}
 	}
@@ -79,6 +85,15 @@ SourceFile::~SourceFile()
 	for (unsigned int i = 0; i < m_sourceLines.size(); ++i) {
 		delete m_sourceLines[i];
 	}
+}
+
+std::string SourceFile::getBasename()
+{
+	std::string::size_type idx = m_absFileName.rfind(PATH_SEP);
+	if (idx != std::string::npos) {
+		return m_absFileName.substr(idx + 1, m_absFileName.size() - idx - 1);
+	}
+	return m_absFileName;
 }
 
 void SourceFile::getCleanLine(const std::string& line, std::string& cleanedLine)
@@ -112,12 +127,12 @@ void SourceFile::getCleanLine(const std::string& line, std::string& cleanedLine)
 	}
 }
 
-bool SourceFile::isSourceLine(const std::string& line)
+bool SourceFile::isSourceLine(const std::string& line, const unsigned int minChars)
 {
 	std::string tmp = StringUtil::trim(line);
 
 	// filter min size lines
-	if (tmp.size() < m_minChars) {
+	if (tmp.size() < minChars) {
 		return false;
 	}
 
@@ -157,13 +172,13 @@ bool SourceFile::isSourceLine(const std::string& line)
 		}
 	}
 
-	bool bRet = (tmp.size() >= m_minChars);
+	bool bRet = (tmp.size() >= minChars);
 	assert(bRet);
 
 	return bRet;
 }
 
-const std::string& SourceFile::getFilename() const
+const std::string& SourceFile::getFilename(bool abs) const
 {
-	return m_fileName;
+	return abs ? m_absFileName : m_fileName;
 }

@@ -49,9 +49,6 @@ protected:
 	void reportSeq(int line1, int line2, int count, SourceFile* pSource1, SourceFile* pSource2, std::ostream& outFile);
 	int process(SourceFile* pSource1, SourceFile* pSource2, std::ostream& outFile);
 
-	const std::string getFilenamePart(const std::string& fullpath);
-	bool isSameFilename(const std::string& filename1, const std::string& filename2);
-
 public:
 	Duplo(const std::vector<std::string>& inputFiles, unsigned int minBlockSize, unsigned int minChars, bool ignorePrepStuff, bool ignoreSameFilename, bool Xml, bool quiet);
 	~Duplo();
