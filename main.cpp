@@ -39,9 +39,9 @@ static void usage(ostream& out, const char* name, int status)
 	out << "  -q, --quiet              Do not print progress information, only results" << endl;
 	out << "  -x, --xml                Generate XML output" << endl;
 	out << "  -l, --min-lines N        Set minimum number of lines that count as block to N (default: " << MIN_BLOCK_SIZE << ")" << endl;
-	out << "  -l, --min-chars N        Set minimum number of characters that count as line to N (default: " << MIN_CHARS << ")" << endl;
+	out << "  -c, --min-chars N        Set minimum number of characters that count as line to N (default: " << MIN_CHARS << ")" << endl;
 	out << "  -p, --ignore-preprocess  Ignore preprocessor directives" << endl;
-	out << "  -n, --ignore-same-name   Also compare files with the same name (but are not the same file)" << endl;
+	out << "  -n, --ignore-same-name   Also compare files with the same name" << endl;
 	out << "  -i, --input <file>       Read input files from <file>, one file per line" << endl;
 	out << "  -o, --output <file>      Write final results to <file> (default: stdout)" << endl;
 	out << endl;
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 	char* input = 0L;
 	char* output = 0L;
 
-	while ((c = getopt_long(argc, argv, "hql:c:pnxi:o:", long_options, 0L)) != -1) {
+	while ((c = getopt_long(argc, argv, "hvql:c:pnxi:o:", long_options, 0L)) != -1) {
 		switch (c) {
 		case 'h':
 			usage(cout, argv[0], 0);
