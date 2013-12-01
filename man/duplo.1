@@ -1,0 +1,86 @@
+.\" Manpage for duplo.
+.\" Contact ch@bitfehler.net to correct errors or typos.
+.TH duplo 1 "Dec 2013" "Duplo Version 0.3.0" "duplo man page"
+.SH NAME
+duplo \- search files for duplicate source code
+.SH SYNOPSIS
+.B duplo
+.RI [ options ]
+.RI [ files ...]
+.br
+.B duplo
+.RI [ options ]
+.RI -i\  file
+.SH DESCRIPTION
+.B duplo
+searches a given set of source files for duplicate code. These source files can
+be specified either directly on the command line as positional arguments or by
+using the
+.B -i
+parameter, in which case no further input files can be specified on the command
+line.
+.LP
+.B duplo
+depends on some pre-processing (like removing comments), and is therefore not
+language-agnostic. It currently supports the following languages: C, C++, C#,
+Java, VB.
+.SH OPTIONS
+.SS Generic Program Options
+.TP
+.B -h, --help
+Print a usage message briefly summarizing these command-line options and exit.
+.TP
+.B -v, --version
+Print the version number and exit.
+.SS Input and Output Control Options
+.TP
+.BI -i\  file ,\ --input= file
+Instead of receiving the input source files as command line arguments, read
+them from
+.IR file .
+The given file should contain one source file per line. If this option is
+used, no further input files can specified as positional arguments.
+.TP
+.BI -o\  file ,\ --output= file
+Write final results (but not the progress information) to
+.IR file.
+The default is to write the results to stdout, after all progress messages.
+.TP
+.B -q, --quiet
+Do not print progress information, only results.
+.TP
+.B -x, --xml
+Generate XML output for the results instead of plain text. The XML will adhere
+to the schema defined in the file
+.IR duplo.xsd ,
+which should have been installed on your system together with the
+.B duplo
+executable.
+.SS Duplicate Matching Control Options
+.TP
+.BI -c\  N ,\ --min-chars= N
+Set minimum number of characters that count as line to
+.IR N .
+The default value is 3. Note that this refers to pre-processed lines, with
+comments and white spaces removed. This useful so that a series of closing
+braces will not count as matches.
+.TP
+.BI -l\  N ,\ --min-lines= N
+Set minimum number of lines that count as block to
+.IR N .
+The default value is 4. Only blocks of at least
+.I N
+consecutive lines matching the same number of consecutive lines in another
+file are reported.
+.TP
+.B -n, --ignore-same-name
+Usually, files with the same name are skipped, so bar/foo.h and baz/foo.h would
+not be compared. If this option is used, files will be compared even if their
+name is identical (but a file is still never compared with itself).
+.TP
+.B -p, --ignore-preprocess
+Attempt to filter out preprocessor directives and similar (e.g. import) statements.
+.SH BUGS
+Please report bugs at https://github.com/bitfehler/duplo/issues.
+.SH AUTHOR
+Duplo was originally written by Christian Ammann. It is currently maintained by Conrad Hoffmann (ch@bitfehler.net).
