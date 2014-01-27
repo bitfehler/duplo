@@ -37,7 +37,7 @@ SourceFile::SourceFile(const std::string& fileName, const unsigned int minChars,
       m_ignorePrepStuff(ignorePrepStuff)
 {
 	m_fileName = getBasename();
-	TextFile listOfFiles(m_fileName.c_str());
+	TextFile listOfFiles(m_absFileName.c_str());
 
 	std::vector<std::string> lines;
 	listOfFiles.readLines(lines);
